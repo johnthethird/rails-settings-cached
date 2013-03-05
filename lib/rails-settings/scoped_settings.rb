@@ -4,10 +4,10 @@ module RailsSettings
       @object = object
       self
     end
-    
+
     def self.thing_scoped
-      Settings.scoped_by_thing_type_and_thing_id(@object.class.base_class.to_s, @object.id)
+      Settings.where(["(thing_type = ? AND thing_id = ?) OR (thing_type is null AND thing_id is null)", @object.class.base_class.to_s, @object.id]).order("thing_type asc")
     end
- 
+
   end
 end
