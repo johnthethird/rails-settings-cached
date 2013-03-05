@@ -138,6 +138,13 @@ describe RailsSettings do
     end
   end
   
+  describe "Object overrides globals" do
+    it "should default to global value for unknown object key" do
+      Setting['key'] = 'global value'
+      @user.settings['key'].should == 'global value'
+    end
+  end
+
   describe 'Query all items' do
     describe '#unscoped' do
       it 'should work' do
