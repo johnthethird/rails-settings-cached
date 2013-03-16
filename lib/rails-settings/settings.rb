@@ -48,7 +48,7 @@ module RailsSettings
         vars = vars.where("var LIKE '#{starting_with}%'")
       end
 
-      result = {}
+      result = starting_with ? @@defaults.select{|k,v| k =~ /^#{starting_with}/} : {}
       vars.each do |record|
         result[record.var] = record.value
       end
