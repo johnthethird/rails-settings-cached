@@ -49,7 +49,7 @@ module RailsSettings
       options = starting_with ? { :conditions => "var LIKE '#{starting_with}%'"} : {}
       vars = thing_scoped.find(:all, {:select => 'var, value'}.merge(options))
 
-      result = starting_with ? @@defaults.select{|k,v| k =~ /^#{starting_with}/} : {}
+      result = starting_with ? @@defaults.dup.keep_if{|k,v| k =~ /^#{starting_with}/} : {}
       vars.each do |record|
         result[record.var] = record.value
       end
