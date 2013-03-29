@@ -71,7 +71,7 @@ module RailsSettings
     def self.[]=(var_name, value)
       var_name = var_name.to_s
 
-      record = object(var_name) || thing_scoped.new(:var => var_name)
+      record = object(var_name) || scoped_for_new.new(:var => var_name)
       record.value = value
       record.save!
 
@@ -108,6 +108,9 @@ module RailsSettings
       self.scoped_by_thing_type_and_thing_id(nil, nil)
     end
 
+    def self.scoped_for_new
+      self.scoped_by_thing_type_and_thing_id(nil, nil)
+    end
 
   end
 end

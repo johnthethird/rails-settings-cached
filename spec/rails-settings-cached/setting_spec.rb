@@ -90,6 +90,7 @@ describe RailsSettings do
 
   describe "Implementation by embeds a Model" do
     it "can set values" do
+      Setting['level'] = 0
       @user.settings.level = 30
       @user.settings.locked = true
       @user.settings.last_logined_at = @tm
@@ -109,5 +110,15 @@ describe RailsSettings do
     end
   end
 
+  describe "Setting.all also includes defaults" do
+    it "should include defaults" do
+      Setting.defaults['string_key'] = 'shadowed'
+      Setting.defaults[:string_key2] = 'value2'
+      Setting[:string_key] = 'value'
+      Setting['string_key'].should == 'value'
+      Setting.all('string_').size.should == 2
+      Setting.all('string_')['string_key2'].should == 'value2'
+    end
+  end
 
 end
