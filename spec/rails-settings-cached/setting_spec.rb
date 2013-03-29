@@ -145,6 +145,17 @@ describe RailsSettings do
     end
   end
 
+  describe "Setting.all also includes defaults" do
+    it "should include defaults" do
+      Setting.defaults['string_key'] = 'shadowed'
+      Setting.defaults[:string_key2] = 'value2'
+      Setting[:string_key] = 'value'
+      Setting['string_key'].should == 'value'
+      Setting.all('string_').size.should == 2
+      Setting.all('string_')['string_key2'].should == 'value2'
+    end
+  end
+
   describe 'Query all items' do
     describe '#unscoped' do
       it 'should work' do
