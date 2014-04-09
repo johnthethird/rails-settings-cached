@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
+
   create_table :users do |t|
     t.string :login
     t.string :password
@@ -40,19 +40,19 @@ ActiveRecord::Schema.define(:version => 1) do
 end
 
 RSpec.configure do |config|
-  
+
   config.before(:all) do
     class ::Setting < RailsSettings::CachedSettings
     end
-    
+
     class User < ActiveRecord::Base
       include RailsSettings::Extend
     end
-    
+
     ActiveRecord::Base.connection.execute("delete from settings")
     Rails.cache.clear
   end
-  
+
   config.after(:all) do
     Object.send(:remove_const, :Setting)
   end

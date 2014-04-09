@@ -54,14 +54,14 @@ module RailsSettings
       end
       result.with_indifferent_access
     end
-    
+
     def self.where(sql = nil)
       if sql
         vars = thing_scoped.where(sql)
       end
       vars
     end
-    
+
     #get a setting value by [] notation
     def self.[](var_name)
       if var = object(var_name)
@@ -111,11 +111,11 @@ module RailsSettings
     end
 
     def self.thing_scoped
-      unscoped.where("thing_type is NULL and thing_id is NULL")
+      unscoped.where(:thing_type => nil, :thing_id => nil)
     end
 
     def self.scoped_for_new
-      self.scoped_by_thing_type_and_thing_id(nil, nil)
+      unscoped.where(:thing_type => nil, :thing_id => nil)
     end
 
   end
