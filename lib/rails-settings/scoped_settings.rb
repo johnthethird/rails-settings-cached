@@ -6,7 +6,7 @@ module RailsSettings
     end
 
     def self.thing_scoped
-      Setting.unscoped.where(["(thing_type = ? AND thing_id = ?) OR (thing_type is null AND thing_id is null)", @object.class.base_class.to_s, @object.id]).order("thing_type desc")
+      Setting.unscoped.where(["(thing_type = ? AND thing_id = ?) OR (thing_type is null AND thing_id is null)", @object.class.base_class.to_s, @object.id]).order("thing_type asc")
     end
 
     def self.scoped_for_new
